@@ -86,6 +86,13 @@ func (s *ApprovalName) compare(approvalFile, receivedFile string, reader io.Read
 		return err
 	}
 
+	if *updateFlag {
+		err = s.overwriteApprovedFile(approvalFile, receivedFile)
+		if err != nil {
+			return err
+		}
+	}
+
 	fh, err := os.Open(approvalFile)
 	if err != nil {
 		return err
@@ -137,4 +144,18 @@ func (s *ApprovalName) getReceivedFile(extWithDot string) string {
 
 func (s *ApprovalName) getApprovalFile(extWithDot string) string {
 	return s.getFileName(extWithDot, "approved")
+}
+
+func (s *ApprovalName) overwriteApprovedFile(approvalFile, receivedFile string) error {
+	received, err := ioutil.ReadFile(receivedFile)
+	if err != nil {
+		return err
+	}
+
+	err = ioutil.WriteFile(approvalFile, received, 0644)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
