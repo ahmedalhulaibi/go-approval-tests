@@ -205,3 +205,10 @@ func TestVerifyAllCombinationsFor9(t *testing.T) {
 		[]int{12, 13},
 		[]int{14, 15})
 }
+
+func TestUpdateFlag(t *testing.T) {
+	if !*updateFlag {
+		t.Skip("Skipping TestUpdateFlag as -update flag is not set")
+	}
+	VerifyString(t, "Updated content")
+}
