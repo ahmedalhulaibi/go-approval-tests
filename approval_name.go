@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"path"
 	"runtime"
@@ -73,7 +72,7 @@ func isTestRunner(f *runtime.Func) bool {
 }
 
 func (s *ApprovalName) compare(approvalFile, receivedFile string, reader io.Reader) error {
-	received, err := ioutil.ReadAll(reader)
+	received, err := io.ReadAll(reader)
 	if err != nil {
 		return err
 	}
@@ -99,7 +98,7 @@ func (s *ApprovalName) compare(approvalFile, receivedFile string, reader io.Read
 	}
 	defer fh.Close()
 
-	approved, err := ioutil.ReadAll(fh)
+	approved, err := io.ReadAll(fh)
 	if err != nil {
 		return err
 	}
@@ -120,13 +119,13 @@ func (s *ApprovalName) normalizeLineEndings(bs []byte) []byte {
 }
 
 func (s *ApprovalName) dumpReceivedTestResult(bs []byte, receivedFile string) error {
-	err := ioutil.WriteFile(receivedFile, bs, 0644)
+	err := os.WriteFile(receivedFile, bs, 0644)
 
 	return err
 }
 
 func (s *ApprovalName) getFileName(extWithDot string, suffix string) string {
-	if !strings.HasPrefix(extWithDot, ".") {
+	if (!strings.HasPrefix(extWithDot, ".")) {
 		extWithDot = fmt.Sprintf(".%s", extWithDot)
 	}
 
@@ -147,12 +146,12 @@ func (s *ApprovalName) getApprovalFile(extWithDot string) string {
 }
 
 func (s *ApprovalName) overwriteApprovedFile(approvalFile, receivedFile string) error {
-	received, err := ioutil.ReadFile(receivedFile)
+	received, err := os.ReadFile(receivedFile)
 	if err != nil {
 		return err
 	}
 
-	err = ioutil.WriteFile(approvalFile, received, 0644)
+	err = os.WriteFile(approvalFile, received, 0644)
 	if err != nil {
 		return err
 	}
