@@ -1,3 +1,3 @@
-module github.com/approvals/go-approval-tests
+module github.com/ahmedalhulaibi/go-approval-tests
 
 go 1.12
