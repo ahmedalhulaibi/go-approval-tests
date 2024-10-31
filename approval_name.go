@@ -85,7 +85,7 @@ func (s *ApprovalName) compare(approvalFile, receivedFile string, reader io.Read
 		return err
 	}
 
-	if *updateFlag {
+	if updateOption {
 		err = s.overwriteApprovedFile(approvalFile, receivedFile)
 		if err != nil {
 			return err

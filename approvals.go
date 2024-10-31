@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
-	"flag"
 	"fmt"
 	"io"
 	"os"
@@ -20,7 +19,7 @@ var (
 	defaultReporter            = reporters.NewDiffReporter()
 	defaultFrontLoadedReporter = reporters.NewFrontLoadedReporter()
 	defaultFolder              = ""
-	updateFlag                 = flag.Bool("update", false, "overwrite approved files with received files")
+	updateOption               = false
 )
 
 // Failable is an interface wrapper around testing.T
@@ -264,6 +263,10 @@ func getReporter() reporters.Reporter {
 //
 func UseFolder(f string) {
 	defaultFolder = f
+}
+
+func UseUpdateOption(option bool) {
+	updateOption = option
 }
 
 type scrubber func(s string) string

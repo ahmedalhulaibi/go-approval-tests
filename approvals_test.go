@@ -207,8 +207,6 @@ func TestVerifyAllCombinationsFor9(t *testing.T) {
 }
 
 func TestUpdateFlag(t *testing.T) {
-	if !*updateFlag {
-		t.Skip("Skipping TestUpdateFlag as -update flag is not set")
-	}
+	UseUpdateOption(true)
 	VerifyString(t, "Updated content")
 }
