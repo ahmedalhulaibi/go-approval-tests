@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	approvals "github.com/approvals/go-approval-tests"
+	approvals "github.com/ahmedalhulaibi/go-approval-tests"
 )
 
 func TestVerifyDoesNotAcceptSeveralVerifyOptions(t *testing.T) {

@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/approvals/go-approval-tests/utils"
+	"github.com/ahmedalhulaibi/go-approval-tests/utils"
 )
 
 type testReporter struct {
