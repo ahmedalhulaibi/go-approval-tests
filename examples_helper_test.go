@@ -1,4 +1,3 @@
-// nolint:unused // this is an example file
 package approvals_test
 
 import (
@@ -7,7 +6,7 @@ import (
 	"log"
 	"strings"
 
-	approvals "github.com/approvals/go-approval-tests"
+	approvals "github.com/ahmedalhulaibi/go-approval-tests"
 )
 
 var (
