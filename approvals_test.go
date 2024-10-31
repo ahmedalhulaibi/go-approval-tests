@@ -2,6 +2,7 @@ package approvals
 
 import (
 	"encoding/xml"
+	"flag"
 	"fmt"
 	"os"
 	"strings"
@@ -10,11 +11,15 @@ import (
 	"github.com/ahmedalhulaibi/go-approval-tests/reporters"
 )
 
+var updateFlag = flag.Bool("update", false, "update .approved files")
+
 func TestMain(m *testing.M) {
 	r := UseReporter(reporters.NewContinuousIntegrationReporter())
 	defer r.Close()
 
 	UseFolder("testdata")
+	flag.Parse()
+	UseUpdateOption(*updateFlag)
 
 	os.Exit(m.Run())
 }
@@ -207,6 +212,8 @@ func TestVerifyAllCombinationsFor9(t *testing.T) {
 }
 
 func TestUpdateFlag(t *testing.T) {
-	UseUpdateOption(true)
+	if !updateOption {
+		t.Skip("Skipping test because update flag is not set")
+	}
 	VerifyString(t, "Updated content")
 }
