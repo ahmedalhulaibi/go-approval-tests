@@ -119,6 +119,10 @@ func (s *ApprovalName) normalizeLineEndings(bs []byte) []byte {
 }
 
 func (s *ApprovalName) dumpReceivedTestResult(bs []byte, receivedFile string) error {
+	// Ensure parent directories exist for receivedFile
+	if err := os.MkdirAll(path.Dir(receivedFile), 0755); err != nil {
+		return err
+	}
 	err := os.WriteFile(receivedFile, bs, 0644)
 
 	return err
@@ -148,9 +152,6 @@ func (s *ApprovalName) getApprovalFile(extWithDot string) string {
 func (s *ApprovalName) overwriteApprovedFile(approvalFile, receivedFile string) error {
 	// Ensure parent directories exist for approvalFile and receivedFile
 	if err := os.MkdirAll(path.Dir(approvalFile), 0755); err != nil {
-		return err
-	}
-	if err := os.MkdirAll(path.Dir(receivedFile), 0755); err != nil {
 		return err
 	}
 
