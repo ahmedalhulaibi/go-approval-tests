@@ -125,7 +125,7 @@ func (s *ApprovalName) dumpReceivedTestResult(bs []byte, receivedFile string) er
 }
 
 func (s *ApprovalName) getFileName(extWithDot string, suffix string) string {
-	if (!strings.HasPrefix(extWithDot, ".")) {
+	if !strings.HasPrefix(extWithDot, ".") {
 		extWithDot = fmt.Sprintf(".%s", extWithDot)
 	}
 
@@ -146,6 +146,14 @@ func (s *ApprovalName) getApprovalFile(extWithDot string) string {
 }
 
 func (s *ApprovalName) overwriteApprovedFile(approvalFile, receivedFile string) error {
+	// Ensure parent directories exist for approvalFile and receivedFile
+	if err := os.MkdirAll(path.Dir(approvalFile), 0755); err != nil {
+		return err
+	}
+	if err := os.MkdirAll(path.Dir(receivedFile), 0755); err != nil {
+		return err
+	}
+
 	received, err := os.ReadFile(receivedFile)
 	if err != nil {
 		return err
